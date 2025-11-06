@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Sporify</string>
     <string name="home">Home</string>
-    <string name="chats">Chats</string>
+    <string name="playlist">Play List</string>
     <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
