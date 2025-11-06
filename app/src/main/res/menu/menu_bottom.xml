@@ -2,16 +2,16 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Item"
+    <item android:title="@string/home"
         android:id="@+id/home"
         android:enabled="true"
-        android:icon="@android:drawable/ic_menu_mylocation"/>
-    <item android:title="Item"
+        android:icon="@drawable/home_icon"/>
+    <item android:title="@string/profile"
         android:id="@+id/profile"
         android:enabled="true"
-        android:icon="@android:drawable/ic_menu_info_details"/>
-    <item android:title="Item"
+        android:icon="@drawable/profile_icon"/>
+    <item android:title="@string/chats"
         android:id="@+id/chats"
         android:enabled="true"
-        android:icon="@android:drawable/ic_menu_call"/>
+        android:icon="@drawable/chats_icon"/>
 </menu>

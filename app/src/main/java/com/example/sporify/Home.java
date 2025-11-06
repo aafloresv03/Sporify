@@ -28,12 +28,13 @@ public class Home extends AppCompatActivity {
             return insets;
         });
 
-        setSupportActionBar(binding.materialToolbar);
-        binding.bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                return false;
-            }
+        setSupportActionBar(binding.topToolBar);
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.home)   { /* acción */ return true; }
+            if (id == R.id.profile){ /* acción */ return true; }
+            if (id == R.id.chats)  { /* acción */ return true; }
+            return false;
         });
     }
 
