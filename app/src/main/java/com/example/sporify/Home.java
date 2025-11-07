@@ -31,6 +31,13 @@ public class Home extends AppCompatActivity {
 
 
         setSupportActionBar(binding.topToolBar);
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+            Insets sys = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            binding.topToolBar.setPadding(0, sys.top, 0, 0);
+            binding.bottomNavigationView.setPadding(0, 0, 0, sys.bottom);
+            return insets;
+        });
+
 
         replaceFragment(homeFragment);
 
@@ -67,10 +74,10 @@ public class Home extends AppCompatActivity {
         }
     }
 
-    public void replaceFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragment_container, fragment, null)
-                .addToBackStack(null);
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
+
 }

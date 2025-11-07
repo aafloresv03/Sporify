@@ -4,4 +4,9 @@
     <string name="playlist">Play List</string>
     <string name="profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="play">Play</string>
+    <string name="dark_mode_mix">Dark Mode Mix</string>
+    <string name="andy_2025">Andy • 2025</string>
+    <string name="todo">TODO</string>
+    <string name="album_art_desc">Descripcion album</string>
 </resources>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:strokeColor="?attr/colorOutlineVariant"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Imagen circular con aro dinámico -->
+        <FrameLayout
+            android:id="@+id/artContainer"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:padding="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/albumArt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/album_ring_sweep"
+                app:shapeAppearanceOverlay="@style/Shape.Circular"/>
+                app:strokeColor="?attr/colorPrimary"
+                app:strokeWidth="2dp" />
+        </FrameLayout>
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Album title"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="?attr/colorOnSurface"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@id/artContainer"
+            app:layout_constraintTop_toTopOf="@id/artContainer"
+            app:layout_constraintEnd_toStartOf="@id/playFab" />
+
+        <!-- Autor -->
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Autor"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:maxLines="1"
+            app:layout_constraintStart_toEndOf="@id/artContainer"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintEnd_toStartOf="@id/playFab" />
+
+        <!-- Meta info -->
+        <TextView
+            android:id="@+id/meta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Género • Año • Tracks"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:maxLines="1"
+            app:layout_constraintStart_toEndOf="@id/artContainer"
+            app:layout_constraintTop_toBottomOf="@id/author"
+            app:layout_constraintEnd_toStartOf="@id/playFab" />
+
+        <!-- Botón de acción -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/playFab"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:contentDescription="@string/play"
+            app:srcCompat="@drawable/play_icon"
+            app:backgroundTint="?attr/colorPrimaryContainer"
+            app:tint="?attr/colorOnPrimaryContainer"
+            app:layout_constraintTop_toTopOf="@id/artContainer"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

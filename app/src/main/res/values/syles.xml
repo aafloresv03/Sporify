@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Shape.Circular">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Alias para referencias antiguas -->
+    <style name="Shape" parent="Shape.Circular"/>
+</resources>
