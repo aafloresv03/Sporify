@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/album_ring_sweep"
-                app:shapeAppearanceOverlay="@style/Shape.Circular"/>
+                app:shapeAppearanceOverlay="@style/Shape.Circular"
                 app:strokeColor="?attr/colorPrimary"
                 app:strokeWidth="2dp" />
         </FrameLayout>
@@ -81,8 +81,8 @@
         <!-- Botón de acción -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/playFab"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:contentDescription="@string/play"
             app:srcCompat="@drawable/play_icon"
             app:backgroundTint="?attr/colorPrimaryContainer"

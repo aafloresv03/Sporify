@@ -37,19 +37,7 @@ public class HomeFragment extends Fragment {
         // card.albumArt.setImageResource(R.drawable.mi_cover);
         card.playFab.setOnClickListener(v -> { /* play */ });
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            int bottom = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom;
-            View mini = binding.miniPlayer;
-            mini.setPadding(mini.getPaddingLeft(), mini.getPaddingTop(),
-                    mini.getPaddingRight(), Math.max(mini.getPaddingBottom(), bottom));
-            return insets;
-        });
 
-        binding.btnPlay.setOnClickListener(v -> {
-            playing[0] = !playing[0];
-            binding.btnPlay.setImageResource(playing[0] ? R.drawable.pause_icon
-                    : R.drawable.play_icon);
-        });
     }
 
     @Override

@@ -5,5 +5,5 @@
     <item android:title="Item"
         android:id="@+id/profile"
         app:showAsAction="always"
-        android:icon="@android:drawable/stat_notify_chat" />
+        android:icon="@drawable/profile_icon_2" />
 </menu>
