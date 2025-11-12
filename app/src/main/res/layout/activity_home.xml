@@ -6,19 +6,23 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".Home">
 
     <!-- Toolbar superior -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorSurface"
+        android:elevation="4dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topToolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorOnBackground"
-            android:theme="?attr/actionBarTheme" />
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.Material3.Dark.ActionBar"
+            android:titleTextColor="@color/colorOnPrimary"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Contenedor de fragments -->
@@ -31,16 +35,18 @@
         android:paddingBottom="120dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!-- Mini-player pegado al BottomNavigationView -->
+    <!-- Mini-player -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/miniPlayer"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:layout_gravity="bottom"
-        android:elevation="6dp"
+        android:elevation="8dp"
         app:layout_dodgeInsetEdges="bottom"
-        app:cardCornerRadius="5dp"
-        app:cardUseCompatPadding="true">
+        app:cardBackgroundColor="@color/colorSurface"
+        app:cardCornerRadius="12dp"
+        app:strokeColor="@color/colorPrimaryVariant"
+        app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -64,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dark_mode_mix"
                 android:textAppearance="?attr/textAppearanceBodyLarge"
-                android:textColor="?attr/colorOnSurface"
+                android:textColor="@color/colorOnBackground"
                 app:layout_constraintStart_toEndOf="@id/art"
                 app:layout_constraintTop_toTopOf="@id/art"
                 app:layout_constraintEnd_toStartOf="@id/btnPlay" />
@@ -75,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/andy_2025"
                 android:textAppearance="?attr/textAppearanceBodySmall"
-                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textColor="@color/colorOnSurface"
                 app:layout_constraintStart_toStartOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 app:layout_constraintEnd_toStartOf="@id/btnPlay" />
@@ -86,8 +92,8 @@
                 android:layout_height="55dp"
                 android:contentDescription="@string/todo"
                 app:srcCompat="@drawable/play_icon"
-                app:backgroundTint="?attr/colorPrimaryContainer"
-                app:tint="?attr/colorOnPrimaryContainer"
+                app:backgroundTint="@color/colorPrimaryVariant"
+                app:tint="@color/colorOnPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
@@ -98,6 +104,9 @@
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                app:indicatorColor="@color/colorAccent"
+                app:trackColor="@color/colorSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
@@ -110,6 +119,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="@color/colorSurface"
+        app:itemIconTint="@color/colorPrimaryVariant"
+        app:itemTextColor="@color/colorOnSurface"
         app:menu="@menu/menu_bottom"
         app:layout_insetEdge="bottom" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

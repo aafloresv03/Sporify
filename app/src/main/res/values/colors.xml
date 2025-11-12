@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Colores base -->
+    <color name="colorPrimary">#FF7A2F</color>        <!-- Naranja principal (tono cálido y visible) -->
+    <color name="colorPrimaryVariant">#FFB347</color> <!-- Variante más clara para botones o resaltes -->
+    <color name="colorSecondary">#FFD35C</color>      <!-- Amarillo suave, usado en acentos -->
+    <color name="colorAccent">#FF6B3D</color>         <!-- Rojo-anaranjado de énfasis -->
+
+    <!-- Fondo y superficies -->
+    <color name="colorBackground">#2A2A2A</color>     <!-- Fondo principal oscuro -->
+    <color name="colorSurface">#333333</color>        <!-- Superficies (cards, barras, etc.) -->
+
+    <!-- Texto -->
+    <color name="colorOnPrimary">#FFFFFF</color>      <!-- Texto sobre colorPrimary -->
+    <color name="colorOnBackground">#EAEAEA</color>   <!-- Texto sobre fondo oscuro -->
+    <color name="colorOnSurface">#D6D6D6</color>      <!-- Texto sobre superficies -->
+
+    <!-- Estados -->
+    <color name="colorError">#FF4E4E</color>          <!-- Rojo para errores -->
+    <color name="colorSuccess">#50C878</color>        <!-- Verde éxito -->
 </resources>
