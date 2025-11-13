@@ -9,4 +9,6 @@
     <string name="andy_2025">Andy • 2025</string>
     <string name="todo">TODO</string>
     <string name="album_art_desc">Descripcion album</string>
+    <string name="name">Nombre</string>
+    <string name="alias">\@andybeats</string>
 </resources>
