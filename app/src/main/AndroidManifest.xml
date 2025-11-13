@@ -7,6 +7,7 @@
         android:required="false" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,10 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sporify">
         <activity
-            android:name=".Login"
+            android:name=".Home"
             android:exported="false" />
         <activity
-            android:name=".Home"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

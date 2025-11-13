@@ -20,11 +20,12 @@
             <!-- FOTO DE PERFIL -->
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgAvatar"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
                 android:layout_marginTop="32dp"
                 android:src="@drawable/picture_profile_icon_male_icon_human_or_people_sign_and_symbol_vector"
                 android:scaleType="centerCrop"
+                android:padding="5dp"
                 app:shapeAppearanceOverlay="@style/Shape.Circular"
                 app:strokeColor="@color/colorPrimary"
                 app:strokeWidth="3dp"
