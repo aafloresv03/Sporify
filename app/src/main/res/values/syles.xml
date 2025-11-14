@@ -7,4 +7,8 @@
 
     <!-- Alias para referencias antiguas -->
     <style name="Shape" parent="Shape.Circular"/>
+    <style name="Shape.Rounded.Medium">
+        <item name="cornerSize">14dp</item>
+    </style>
+
 </resources>

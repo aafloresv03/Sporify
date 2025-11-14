@@ -22,4 +22,5 @@
     <string name="repeatPasswordText">Repetir contraseña</string>
     <string name="crear_cuenta">Crear cuenta</string>
     <string name="haveAccount">¿Ya tienes cuenta?</string>
+    <string name="player">Player</string>
 </resources>

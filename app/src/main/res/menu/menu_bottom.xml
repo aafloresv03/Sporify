@@ -6,6 +6,10 @@
         android:id="@+id/home"
         android:enabled="true"
         android:icon="@drawable/home_icon"/>
+    <item android:title="@string/player"
+        android:id="@+id/play"
+        android:enabled="true"
+        android:icon="@drawable/play_icon"/>
     <item android:title="@string/playlist"
         android:id="@+id/playlist"
         android:enabled="true"
