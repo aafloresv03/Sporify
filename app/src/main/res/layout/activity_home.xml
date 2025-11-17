@@ -9,22 +9,6 @@
     android:background="@color/colorBackground"
     tools:context=".Home">
 
-    <!-- Toolbar superior -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorSurface"
-        android:elevation="4dp">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topToolBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:theme="@style/ThemeOverlay.Material3.Dark.ActionBar"
-            android:titleTextColor="@color/colorOnPrimary"/>
-    </com.google.android.material.appbar.AppBarLayout>
-
     <!-- Contenedor de fragments -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"

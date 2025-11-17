@@ -3,21 +3,21 @@ package com.example.sporify;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
-import android.content.pm.PackageManager;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.example.sporify.databinding.FragmentProfileBinding;
 
@@ -25,7 +25,7 @@ public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
 
-    // Launcher cámara (preview en Bitmap)
+    // ---- LAUNCHER: Cámara ----
     private final ActivityResultLauncher<Intent> takePictureLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == Activity.RESULT_OK &&
@@ -34,31 +34,34 @@ public class ProfileFragment extends Fragment {
 
                     Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
 
-                    // Evitar NPE si la vista ya no existe
                     if (binding != null && bitmap != null) {
                         binding.imgAvatar.setImageBitmap(bitmap);
                     }
                 }
             });
 
-    // Launcher permiso cámara
+    // ---- LAUNCHER: Permiso cámara ----
     private final ActivityResultLauncher<String> requestCameraPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
                     abrirCamara();
-                } else {
-                    if (isAdded()) { // evitar crash si el fragment ya no está adjunto
-                        Toast.makeText(requireContext(),
-                                "No tienes permiso para usar la cámara",
-                                Toast.LENGTH_SHORT).show();
-                    }
+                } else if (isAdded()) {
+                    Toast.makeText(requireContext(),
+                            "Permiso de cámara denegado",
+                            Toast.LENGTH_SHORT).show();
                 }
             });
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         binding = FragmentProfileBinding.inflate(inflater, container, false);
+
+        // Configurar toolbar desde el Fragment
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        activity.setSupportActionBar(binding.topToolBar);
+
         return binding.getRoot();
     }
 
@@ -79,7 +82,13 @@ public class ProfileFragment extends Fragment {
     }
 
     private void abrirCamara() {
-        Intent intentCamara = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        takePictureLauncher.launch(intentCamara);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureLauncher.launch(intent);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null; // evitar memory leaks
     }
 }
