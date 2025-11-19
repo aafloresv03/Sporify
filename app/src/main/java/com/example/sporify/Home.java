@@ -1,6 +1,7 @@
 package com.example.sporify;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,8 +28,8 @@ public class Home extends AppCompatActivity {
 
         // Fragment inicial
         replaceFragment(playerFragment);
+        toggleMiniPlayer(playerFragment);
 
-        // Bottom navigation
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment;
 
@@ -46,13 +47,25 @@ public class Home extends AppCompatActivity {
             }
 
             replaceFragment(selectedFragment);
+            toggleMiniPlayer(selectedFragment);
+
             return true;
         });
     }
 
     private void replaceFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
+        getSupportFragmentManager()
+                .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
+    }
+
+    private void toggleMiniPlayer(Fragment fragment) {
+        // IMPORTANTE: miniPlayer viene de binding INCLUDE → NO SE DECLARA A MANO
+        if (fragment instanceof PlayerFragment) {
+            binding.miniPlayer.getRoot().setVisibility(View.GONE);
+        } else {
+            binding.miniPlayer.getRoot().setVisibility(View.VISIBLE);
+        }
     }
 }

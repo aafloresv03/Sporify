@@ -46,6 +46,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+
+    <!-- Gradiente inferior para suavizar el BottomNav -->
+    <View
+        android:id="@+id/bottomGradient"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/player_gradient"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <!-- Controles -->
     <LinearLayout
         android:id="@+id/playerControls"
@@ -60,35 +69,28 @@
 
         <ImageView
             android:id="@+id/btnPrev"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:padding="8dp"
             android:src="@drawable/retroceder_icon"
             app:tint="@android:color/white"/>
 
         <ImageView
             android:id="@+id/btnPlay"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:padding="12dp"
+            android:layout_marginHorizontal="40dp"
             android:src="@drawable/play_icon"
             app:tint="@android:color/white"/>
 
         <ImageView
             android:id="@+id/btnNext"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:padding="8dp"
             android:src="@drawable/next_icon"
             app:tint="@android:color/white"/>
     </LinearLayout>
-
-    <!-- Gradiente inferior para suavizar el BottomNav -->
-    <View
-        android:id="@+id/bottomGradient"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/player_gradient"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
