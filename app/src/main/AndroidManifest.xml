@@ -18,10 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sporify">
         <activity
-            android:name=".Login"
+            android:name=".Home"
             android:exported="false" />
         <activity
-            android:name=".Home"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

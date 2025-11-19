@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/miniPlayerRoot"
     android:layout_width="match_parent"
     android:layout_height="90dp"
-    android:elevation="8dp"
+    android:elevation="10dp"
     app:cardBackgroundColor="@color/colorSurface"
     app:cardCornerRadius="12dp"
     app:strokeColor="@color/colorPrimaryVariant"
@@ -15,41 +16,50 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="12dp">
 
+        <!-- Imagen del álbum -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/art"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:scaleType="centerCrop"
+            android:contentDescription="@string/album_art_desc"
             app:shapeAppearanceOverlay="@style/Shape.Circular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <!-- Título -->
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceBodyLarge"
-            android:textColor="@color/colorOnBackground"
+            android:textColor="@color/colorOnSurface"
             android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintStart_toEndOf="@id/art"
             app:layout_constraintTop_toTopOf="@id/art"
             app:layout_constraintEnd_toStartOf="@id/btnPlay" />
 
+        <!-- Autor / subtítulo -->
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="?attr/textAppearanceBodySmall"
             android:textColor="@color/colorOnSurface"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintEnd_toStartOf="@id/btnPlay" />
 
+        <!-- Botón Play -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnPlay"
             android:layout_width="55dp"
             android:layout_height="55dp"
+            android:contentDescription="@string/play"
             app:backgroundTint="@color/colorPrimaryVariant"
             app:srcCompat="@drawable/play_icon"
             app:tint="@color/colorOnPrimary"
@@ -57,12 +67,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <!-- Barra de progreso -->
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progress"
             style="@style/Widget.Material3.LinearProgressIndicator"
             android:layout_width="0dp"
-            android:layout_height="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="5dp"
+            android:layout_marginVertical="8dp"
             app:indicatorColor="@color/colorAccent"
             app:trackColor="@color/colorSurface"
             app:layout_constraintStart_toStartOf="parent"
