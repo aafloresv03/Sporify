@@ -1,48 +1,47 @@
 package com.example.sporify;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.sporify.databinding.ComponentCardBinding;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.sporify.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
+
     private FragmentHomeBinding binding;
-    final boolean[] playing = {false};
+    private Home home;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        // Si albumCard YA es ComponentCardBinding (tooltip lo confirma), perfecto:
-        ComponentCardBinding card = binding.albumCard;
+    public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(v, savedInstanceState);
 
-        // Payload
-        card.title.setText("Dark Mode Mix");
-        card.author.setText("Andy");
-        card.meta.setText("Electronic • 2025 • 14 tracks");
-        // card.albumArt.setImageResource(R.drawable.mi_cover);
-        card.playFab.setOnClickListener(v -> { /* play */ });
+        home = (Home) requireActivity();
 
-
+        setupList();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    private void setupList() {
+        binding.rvAlbums.setLayoutManager(
+                new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        );
+
+        HomeAdapter adapter = new HomeAdapter(home.getSongs(), song -> {
+            home.playSong(song);
+        });
+
+        binding.rvAlbums.setAdapter(adapter);
     }
 }

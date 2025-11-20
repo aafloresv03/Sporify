@@ -1,97 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="6dp"
-    app:cardBackgroundColor="@color/colorSurface"
-    app:strokeColor="@color/colorPrimaryVariant"
-    app:strokeWidth="1dp">
+    android:layout_height="140dp"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="18dp"
+    app:cardUseCompatPadding="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/colorSurface">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="16dp">
 
-        <!-- Imagen circular con borde cálido -->
-        <FrameLayout
-            android:id="@+id/artContainer"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:padding="4dp"
-            android:background="@color/colorSurface"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/albumArt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:contentDescription="@string/album_art_desc"
-                android:backgroundTint="@color/colorSurface"
-                app:shapeAppearanceOverlay="@style/Shape.Circular"
-                app:strokeColor="@color/colorPrimary"
-                app:strokeWidth="2dp" />
-        </FrameLayout>
+        <!-- Portada -->
+        <ImageView
+            android:id="@+id/albumCover"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_launcher_background" />
 
         <!-- Título -->
         <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
+            android:id="@+id/albumTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Título"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
             android:layout_marginStart="16dp"
-            android:text="Album title"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
-            android:textColor="@color/colorOnBackground"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintStart_toEndOf="@id/artContainer"
-            app:layout_constraintTop_toTopOf="@id/artContainer"
-            app:layout_constraintEnd_toStartOf="@id/playFab" />
+            android:layout_toEndOf="@id/albumCover"
+            android:layout_alignTop="@id/albumCover" />
 
-        <!-- Autor -->
+        <!-- Subtítulo -->
         <TextView
-            android:id="@+id/author"
-            android:layout_width="0dp"
+            android:id="@+id/albumSubtitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Artista"
+            android:textSize="14sp"
+            android:textColor="#AAAAAA"
             android:layout_marginStart="16dp"
-            android:text="Autor"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textColor="@color/colorOnSurface"
-            android:maxLines="1"
-            app:layout_constraintStart_toEndOf="@id/artContainer"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:layout_constraintEnd_toStartOf="@id/playFab" />
+            android:layout_toEndOf="@id/albumCover"
+            android:layout_below="@id/albumTitle" />
 
-        <!-- Meta info -->
-        <TextView
-            android:id="@+id/meta"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Género • Año • Tracks"
-            android:textAppearance="?attr/textAppearanceBodySmall"
-            android:textColor="@color/colorOnSurface"
-            android:maxLines="1"
-            app:layout_constraintStart_toEndOf="@id/artContainer"
-            app:layout_constraintTop_toBottomOf="@id/author"
-            app:layout_constraintEnd_toStartOf="@id/playFab" />
+    </RelativeLayout>
 
-        <!-- Botón de acción -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/playFab"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:contentDescription="@string/play"
-            app:srcCompat="@drawable/play_icon"
-            app:backgroundTint="@color/colorPrimaryVariant"
-            app:tint="@color/colorOnPrimary"
-            app:layout_constraintTop_toTopOf="@id/artContainer"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+</androidx.cardview.widget.CardView>

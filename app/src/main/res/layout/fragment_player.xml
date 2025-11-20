@@ -4,41 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/playerRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_player_default">
+    android:layout_height="match_parent">
 
-    <!-- Carrusel superior de álbumes -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/carouselAlbums"
-        android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:paddingHorizontal="90dp"
-        android:clipToPadding="false"
-        android:clipChildren="false"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- Imagen del álbum actual -->
+    <!-- PORTADA PRINCIPAL -->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/albumArt"
         android:layout_width="260dp"
         android:layout_height="260dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="150dp"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/Shape.Rounded.Large"
-        app:layout_constraintTop_toBottomOf="@id/carouselAlbums"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Barra de progreso -->
+    <!-- BARRA DE PROGRESO -->
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressBar"
         android:layout_width="300dp"
         android:layout_height="6dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="80dp"
         android:max="100"
-        android:progress="30"
         app:indicatorColor="@color/colorPrimary"
         app:trackColor="@color/colorSurface"
         app:trackThickness="6dp"
@@ -46,23 +32,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-
-    <!-- Gradiente inferior para suavizar el BottomNav -->
-    <View
-        android:id="@+id/bottomGradient"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@drawable/player_gradient"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <!-- Controles -->
+    <!-- CONTROLES -->
     <LinearLayout
         android:id="@+id/playerControls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@id/progressBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
