@@ -25,16 +25,29 @@
             android:layout_centerVertical="true"
             android:src="@drawable/ic_launcher_background" />
 
+        <!-- Botón de Like -->
+        <ImageView
+            android:id="@+id/btnLike"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="6dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/outline_add_circle_24"
+            app:tint="@color/colorPrimary" />
+
         <!-- Título -->
         <TextView
             android:id="@+id/albumTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Título"
-            android:textSize="18sp"
+            android:text="@string/song_title"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:layout_marginStart="16dp"
+            android:paddingHorizontal="5dp"
             android:layout_toEndOf="@id/albumCover"
             android:layout_alignTop="@id/albumCover" />
 
@@ -43,10 +56,11 @@
             android:id="@+id/albumSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Artista"
-            android:textSize="14sp"
+            android:text="@string/artist_name"
+            android:textSize="16sp"
             android:textColor="#AAAAAA"
             android:layout_marginStart="16dp"
+            android:paddingHorizontal="5dp"
             android:layout_toEndOf="@id/albumCover"
             android:layout_below="@id/albumTitle" />
 

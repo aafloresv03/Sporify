@@ -58,10 +58,6 @@ public class ProfileFragment extends Fragment {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
-        // Configurar toolbar desde el Fragment
-        AppCompatActivity activity = (AppCompatActivity) requireActivity();
-        activity.setSupportActionBar(binding.topToolBar);
-
         return binding.getRoot();
     }
 

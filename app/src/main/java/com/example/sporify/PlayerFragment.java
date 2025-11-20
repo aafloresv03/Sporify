@@ -68,6 +68,8 @@ public class PlayerFragment extends Fragment {
         Song s = songs.get(index);
 
         binding.albumArt.setImageResource(s.getCoverId());
+        binding.songArtist.setText(s.getArtist());
+        binding.songTitle.setText(s.getTitle());
 
         binding.btnPlay.setImageResource(
                 home.isPlaying() ? R.drawable.pause_icon : R.drawable.play_icon
