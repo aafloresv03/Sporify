@@ -16,16 +16,6 @@
         android:background="@drawable/bg_player_default"
         android:elevation="0dp" />
 
-    <!-- 🟩 CONTENEDOR DEL FRAGMENT -->
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="160dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:elevation="2dp"/>
-
     <!-- 🟧 MINI PLAYER -->
     <include
         android:id="@+id/miniPlayer"
@@ -35,6 +25,17 @@
         android:layout_gravity="bottom"
         android:layout_marginBottom="130dp"
         android:elevation="6dp"/>
+
+    <!-- 🟩 CONTENEDOR DEL FRAGMENT -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="215dp"
+        android:paddingTop="5dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:elevation="2dp"/>
 
     <!-- 🟥 BOTTOM NAVIGATION -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

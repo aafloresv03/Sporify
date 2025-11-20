@@ -2,6 +2,7 @@ package com.example.sporify;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -98,6 +99,14 @@ public class Home extends AppCompatActivity {
                 "The God of Lying",
                 "Gorillaz"
         ));
+
+        songs.add(new Song(
+                R.raw.song05_god_is,
+                R.drawable.portada_jesus_is_king,
+                "God Is",
+                "Kanye West"
+        ));
+
     }
 
     /* ------------------ NAVEGACIÓN ------------------ */
@@ -198,11 +207,13 @@ public class Home extends AppCompatActivity {
         Palette.from(bitmap).generate(palette -> {
 
             int colorTop = palette.getDominantColor(0xFF444444);
-            int colorBottom = palette.getDarkMutedColor(0xFF111111);
+            int colorMiddle = palette.getVibrantColor(0xFF111111);
+            int colorBottom = Color.parseColor("#2A2A2A");
+
 
             GradientDrawable gradient = new GradientDrawable(
                     GradientDrawable.Orientation.TOP_BOTTOM,
-                    new int[]{colorTop, colorBottom}
+                    new int[]{colorTop,colorMiddle, colorBottom}
             );
 
             View bg = findViewById(R.id.playerBackground);
