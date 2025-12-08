@@ -18,17 +18,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- TÍTULO DE LA CANCIÓN -->
+    <TextView
+        android:id="@+id/songTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/song_title"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/albumArt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- ARTISTA -->
+    <TextView
+        android:id="@+id/songArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/artist_name"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_marginTop="6dp"
+        android:alpha="0.8"
+        app:layout_constraintTop_toBottomOf="@id/songTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <!-- BARRA DE PROGRESO -->
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressBar"
         android:layout_width="300dp"
         android:layout_height="6dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:max="100"
         app:indicatorColor="@color/colorPrimary"
         app:trackColor="@color/colorSurface"
         app:trackThickness="6dp"
-        app:layout_constraintTop_toBottomOf="@id/albumArt"
+        app:layout_constraintTop_toBottomOf="@id/songArtist"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

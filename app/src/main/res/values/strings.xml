@@ -25,4 +25,9 @@
     <string name="player">Player</string>
     <string name="no_tienes_cuenta">¿No tienes cuenta?</string>
     <string name="reg_strate">Regístrate</string>
+    <string name="artista">Artista</string>
+    <string name="t_tulo">Título</string>
+    <string name="song_title">Song Title</string>
+    <string name="artist_name">Artist name</string>
+    <string name="change_photo">Cambiar foto"</string> />
 </resources>

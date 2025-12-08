@@ -97,7 +97,7 @@ public class Home extends AppCompatActivity {
                 R.raw.song04_the_god_of_lying,
                 R.drawable.portada_the_montain,
                 "The God of Lying",
-                "Gorillaz"
+                "Gorillaz ft. IDLES"
         ));
 
         songs.add(new Song(
@@ -105,6 +105,20 @@ public class Home extends AppCompatActivity {
                 R.drawable.portada_jesus_is_king,
                 "God Is",
                 "Kanye West"
+        ));
+
+        songs.add(new Song(
+                R.raw.song06_nominao,
+                R.drawable.portada_madrilenio,
+                "Nominao",
+                "C. Tangana"
+        ));
+
+        songs.add(new Song(
+                R.raw.song07_nube_negra,
+                R.drawable.portada_nube_negra,
+                "Nube Negra",
+                "The Gardener"
         ));
 
     }
