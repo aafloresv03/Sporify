@@ -24,14 +24,17 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Infla la vista asociada al registro y habilita binding.
+        // Asigna el evento del botón para ejecutar el proceso de registro.
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
-
         binding.btnRegister.setOnClickListener(v -> handleRegister());
-
         return binding.getRoot();
     }
 
     private void handleRegister() {
+        // Gestiona el flujo completo de registro:
+        // valida campos, verifica existencia previa del correo, guarda el usuario en archivo
+        // y redirige al login si el registro es exitoso.
 
         String name = binding.inputName.getEditText().getText().toString().trim();
         String email = binding.inputEmail.getEditText().getText().toString().trim();
@@ -40,6 +43,7 @@ public class RegisterFragment extends Fragment {
 
         boolean errors = false;
 
+        // Validaciones generales de campos
         if (name.isEmpty()) {
             binding.inputName.setError("Introduzca su nombre");
             errors = true;
@@ -85,6 +89,7 @@ public class RegisterFragment extends Fragment {
 
         File archivo = new File(requireContext().getFilesDir(), "usuarios.txt");
 
+        // Verifica si el correo ya está registrado leyendo el archivo existente.
         if (archivo.exists()) {
             try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
                 String linea;
@@ -101,6 +106,7 @@ public class RegisterFragment extends Fragment {
             }
         }
 
+        // Escribe el usuario en el archivo local usando formato email;contraseña;nombre
         try (FileWriter writer = new FileWriter(archivo, true)) {
             writer.append(email).append(";")
                     .append(pass).append(";")
@@ -113,6 +119,7 @@ public class RegisterFragment extends Fragment {
 
         Toast.makeText(requireContext(), "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
 
+        // Redirige al fragment de login tras completar el registro.
         requireActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()

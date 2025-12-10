@@ -28,12 +28,15 @@ public class PlayerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+        // Infla la vista del player y habilita acceso al binding de la interfaz.
         binding = FragmentPlayerBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        // Se ejecuta tras crear la vista. Obtiene referencia al Activity principal, lista de canciones,
+        // configura controles de reproducción, sincroniza el estado visual e inicia actualización del progreso.
         super.onViewCreated(view, savedInstanceState);
 
         home = (Home) requireActivity();
@@ -45,6 +48,8 @@ public class PlayerFragment extends Fragment {
     }
 
     private void setupControls() {
+        // Asigna acciones a los botones del reproductor: play/pause, siguiente y anterior.
+        // Tras cada acción se sincroniza la interfaz para reflejar el estado actual.
         binding.btnPlay.setOnClickListener(v -> {
             home.togglePlayPause();
             syncUI();
@@ -62,6 +67,8 @@ public class PlayerFragment extends Fragment {
     }
 
     private void syncUI() {
+        // Sincroniza la información visual con la canción actual: portada, título,
+        // artista y estado del botón de reproducción.
         if (binding == null) return;
 
         int index = home.getCurrentSongIndex();
@@ -77,6 +84,8 @@ public class PlayerFragment extends Fragment {
     }
 
     private void startProgressUpdates() {
+        // Inicia un ciclo periódico que actualiza la barra de progreso del reproductor.
+        // Verifica posición actual versus duración y refresca la UI cada 100 ms.
         handler.removeCallbacksAndMessages(null);
 
         progressRunnable = new Runnable() {
@@ -95,30 +104,9 @@ public class PlayerFragment extends Fragment {
                         binding.progressBar.setProgress(progress);
                     }
                 }
-
                 handler.postDelayed(this, 100);
             }
         };
-
         handler.post(progressRunnable);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        handler.removeCallbacks(progressRunnable);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        startProgressUpdates();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        handler.removeCallbacks(progressRunnable);
-        binding = null;
     }
 }

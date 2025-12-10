@@ -20,20 +20,23 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Infla el layout del fragmento y habilita acceso al binding para manipular la UI.
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View v, @Nullable Bundle savedInstanceState) {
+        // Se ejecuta después de la creación de la vista. Obtiene referencia al activity,
+        // permitiendo acceso a canciones y control del reproductor. Inicializa el listado.
         super.onViewCreated(v, savedInstanceState);
-
         home = (Home) requireActivity();
-
         setupList();
     }
 
     private void setupList() {
+        // Configura el RecyclerView del Home en modo vertical, asigna el adaptador y define
+        // la acción al pulsar una canción, delegando reproducción al Activity principal.
         binding.rvAlbums.setLayoutManager(
                 new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         );

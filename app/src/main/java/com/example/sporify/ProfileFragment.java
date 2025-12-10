@@ -25,9 +25,10 @@ public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
 
-    // ---- LAUNCHER: Cámara ----
+    // Launcher para captura de imagen con cámara. Recibe el resultado y asigna el bitmap al avatar.
     private final ActivityResultLauncher<Intent> takePictureLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                // Procesa el retorno de la cámara. Verifica éxito y asigna foto al ImageView.
                 if (result.getResultCode() == Activity.RESULT_OK &&
                         result.getData() != null &&
                         result.getData().getExtras() != null) {
@@ -40,9 +41,10 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-    // ---- LAUNCHER: Permiso cámara ----
+    // Launcher para solicitar permiso de cámara. En caso de aprobación, abre la cámara.
     private final ActivityResultLauncher<String> requestCameraPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                // Si concede permiso se procede con la camara, si no, se notifica rechazo.
                 if (isGranted) {
                     abrirCamara();
                 } else if (isAdded()) {
@@ -55,18 +57,19 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // Infla la vista del perfil, habilita binding y asigna la toolbar al activity.
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
-        // Configurar toolbar desde el Fragment
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
-        activity.setSupportActionBar(binding.topToolBar);
+        activity.setSupportActionBar(binding.toolbar);
 
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        // Configura eventos UI tras la creación. Si el permiso existe toma foto,
+        // si no, lanza solicitud de autorización.
         super.onViewCreated(view, savedInstanceState);
 
         binding.btnChangePhoto.setOnClickListener(v -> {
@@ -82,13 +85,8 @@ public class ProfileFragment extends Fragment {
     }
 
     private void abrirCamara() {
+        // Inicia intent para capturar foto con cámara usando ActivityResultLauncher.
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         takePictureLauncher.launch(intent);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null; // evitar memory leaks
     }
 }

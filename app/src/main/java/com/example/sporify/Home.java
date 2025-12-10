@@ -39,6 +39,9 @@ public class Home extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Punto de entrada principal del Activity. Inicializa la interfaz y los recursos base.
+        // Carga el listado de canciones, prepara el reproductor inicial, configura navegación
+        // inferior y asigna comportamiento para cada sección.
         loadSongs();
         prepareSongAt(0);
 
@@ -46,8 +49,10 @@ public class Home extends AppCompatActivity {
         toggleMiniPlayer(playerFragment);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            // Listener que gestiona la navegación interna con BottomNavigation.
+            // Cambia el fragment, actualiza estado visual y si se ingresa al reproductor
+            // aplica un fondo dinámico basado en la carátula.
             Fragment f;
-
             int id = item.getItemId();
             if (id == R.id.home) f = homeFragment;
             else if (id == R.id.profile) f = profileFragment;
@@ -70,62 +75,24 @@ public class Home extends AppCompatActivity {
     /* ------------------ CARGA DE DATOS ------------------ */
 
     private void loadSongs() {
+        // Carga y registra en memoria la lista local de canciones incluida en el proyecto.
+        // Limpia la lista previa y agrega cada pista con audio, portada, título y artista.
         songs.clear();
 
-        songs.add(new Song(
-                R.raw.song01_wake_me_up,
-                R.drawable.portada_hurry_up_tomorrow,
-                "Wake Me Up",
-                "TheWeeknd"
-        ));
-
-        songs.add(new Song(
-                R.raw.song02_cry_for_me,
-                R.drawable.portada_hurry_up_tomorrow,
-                "Cry For Me",
-                "TheWeeknd"
-        ));
-
-        songs.add(new Song(
-                R.raw.song03_i_cant_fucking_sing,
-                R.drawable.portada_hurry_up_tomorrow,
-                "I Can't Fucking Sing",
-                "TheWeeknd"
-        ));
-
-        songs.add(new Song(
-                R.raw.song04_the_god_of_lying,
-                R.drawable.portada_the_montain,
-                "The God of Lying",
-                "Gorillaz ft. IDLES"
-        ));
-
-        songs.add(new Song(
-                R.raw.song05_god_is,
-                R.drawable.portada_jesus_is_king,
-                "God Is",
-                "Kanye West"
-        ));
-
-        songs.add(new Song(
-                R.raw.song06_nominao,
-                R.drawable.portada_madrilenio,
-                "Nominao",
-                "C. Tangana"
-        ));
-
-        songs.add(new Song(
-                R.raw.song07_nube_negra,
-                R.drawable.portada_nube_negra,
-                "Nube Negra",
-                "The Gardener"
-        ));
-
+        songs.add(new Song(R.raw.song01_wake_me_up, R.drawable.portada_hurry_up_tomorrow,"Wake Me Up","TheWeeknd"));
+        songs.add(new Song(R.raw.song02_cry_for_me, R.drawable.portada_hurry_up_tomorrow,"Cry For Me","TheWeeknd"));
+        songs.add(new Song(R.raw.song03_i_cant_fucking_sing, R.drawable.portada_hurry_up_tomorrow,"I Can't Fucking Sing","TheWeeknd"));
+        songs.add(new Song(R.raw.song04_the_god_of_lying, R.drawable.portada_the_montain,"The God of Lying","Gorillaz ft. IDLES"));
+        songs.add(new Song(R.raw.song05_god_is, R.drawable.portada_jesus_is_king,"God Is","Kanye West"));
+        songs.add(new Song(R.raw.song06_nominao, R.drawable.portada_madrilenio,"Nominao","C. Tangana"));
+        songs.add(new Song(R.raw.song07_nube_negra, R.drawable.portada_nube_negra,"Nube Negra","The Gardener"));
     }
 
     /* ------------------ NAVEGACIÓN ------------------ */
 
     private void replaceFragment(Fragment fragment) {
+        // Inyección de fragment en el contenedor principal del Activity.
+        // No mantiene historial; simplemente reemplaza la vista activa.
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
@@ -133,6 +100,8 @@ public class Home extends AppCompatActivity {
     }
 
     private void toggleMiniPlayer(Fragment fragment) {
+        // Control de visibilidad del mini reproductor. Si el usuario abre la pantalla
+        // principal del reproductor, este componente se oculta para evitar redundancia UI.
         boolean hide = fragment instanceof PlayerFragment;
         binding.miniPlayer.getRoot().setVisibility(hide ? View.GONE : View.VISIBLE);
     }
@@ -140,6 +109,8 @@ public class Home extends AppCompatActivity {
     /* ------------------ REPRODUCTOR ------------------ */
 
     private void prepareSongAt(int index) {
+        // Carga una canción en el MediaPlayer sin reproducirla directamente.
+        // Reinicia la instancia anterior para liberar recursos y configura evento al finalizar.
         if (index < 0 || index >= songs.size()) return;
 
         currentSongIndex = index;
@@ -157,12 +128,16 @@ public class Home extends AppCompatActivity {
     }
 
     public void playSongAt(int index) {
+        // Prepara una canción específica y la reproduce inmediatamente.
+        // Actualiza visualmente el mini reproductor.
         prepareSongAt(index);
         mediaPlayer.start();
         updateMiniPlayerUI();
     }
 
     public void playSong(Song song) {
+        // Recibe una canción directamente y la reproduce creando un nuevo MediaPlayer.
+        // También refresca el mini reproductor y el fondo dinámico.
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.release();
@@ -176,6 +151,8 @@ public class Home extends AppCompatActivity {
     }
 
     public void togglePlayPause() {
+        // Alterna entre reproducir y pausar según el estado actual del player.
+        // Refleja el cambio en el icono del mini reproductor.
         if (mediaPlayer == null) return;
 
         if (mediaPlayer.isPlaying()) mediaPlayer.pause();
@@ -185,18 +162,24 @@ public class Home extends AppCompatActivity {
     }
 
     public void playNext() {
+        // Salta automáticamente a la siguiente pista del catálogo.
+        // Si está en la última, regresa al inicio (comportamiento circular).
         currentSongIndex++;
         if (currentSongIndex >= songs.size()) currentSongIndex = 0;
         playSongAt(currentSongIndex);
     }
 
     public void playPrevious() {
+        // Retrocede a la pista anterior. Si se encuentra al inicio del listado,
+        // salta a la última posición disponible.
         currentSongIndex--;
         if (currentSongIndex < 0) currentSongIndex = songs.size() - 1;
         playSongAt(currentSongIndex);
     }
 
     private void updateMiniPlayerUI() {
+        // Actualiza título, artista, portada y estado del botón play/pause del mini player.
+        // Vincula acciones del botón para mantener controles operativos.
         ComponentMiniPlayerBinding mini = binding.miniPlayer;
         if (mediaPlayer == null) return;
 
@@ -215,7 +198,8 @@ public class Home extends AppCompatActivity {
     /* ------------------ GRADIENTE DINÁMICO ------------------ */
 
     private void updatePlayerGradient(int coverId) {
-
+        // Genera un fondo degradado en tiempo real usando colores dominantes de la carátula.
+        // Mejora la experiencia visual del PlayerFragment.
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), coverId);
 
         Palette.from(bitmap).generate(palette -> {
@@ -224,10 +208,9 @@ public class Home extends AppCompatActivity {
             int colorMiddle = palette.getVibrantColor(0xFF111111);
             int colorBottom = Color.parseColor("#2A2A2A");
 
-
             GradientDrawable gradient = new GradientDrawable(
                     GradientDrawable.Orientation.TOP_BOTTOM,
-                    new int[]{colorTop,colorMiddle, colorBottom}
+                    new int[]{colorTop, colorMiddle, colorBottom}
             );
 
             View bg = findViewById(R.id.playerBackground);
@@ -237,8 +220,23 @@ public class Home extends AppCompatActivity {
 
     /* ------------------ GETTERS ------------------ */
 
-    public ArrayList<Song> getSongs() { return songs; }
-    public MediaPlayer getMediaPlayer() { return mediaPlayer; }
-    public boolean isPlaying() { return mediaPlayer != null && mediaPlayer.isPlaying(); }
-    public int getCurrentSongIndex() { return currentSongIndex; }
+    public ArrayList<Song> getSongs() {
+        // Devuelve el listado completo de canciones disponibles.
+        return songs;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        // Expone el reproductor actual para permitir control externo.
+        return mediaPlayer;
+    }
+
+    public boolean isPlaying() {
+        // Informa si existe media activa en reproducción.
+        return mediaPlayer != null && mediaPlayer.isPlaying();
+    }
+
+    public int getCurrentSongIndex() {
+        // Retorna el índice del track que se está reproduciendo actualmente.
+        return currentSongIndex;
+    }
 }

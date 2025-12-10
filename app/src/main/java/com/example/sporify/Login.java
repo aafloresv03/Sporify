@@ -20,6 +20,9 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Punto de entrada de la pantalla de autenticación. Activa el EdgeToEdge,
+        // inicializa el binding, verifica existencia del archivo de usuarios
+        // y muestra por defecto el fragment de login.
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
@@ -27,12 +30,12 @@ public class Login extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         ensureUsersFileExists();
-
-        // 🔥 Cargar LoginFragment al iniciar
         loadFragment(new LoginFragment());
     }
 
     private void loadFragment(Fragment fragment) {
+        // Sustituye el fragmento actual del contenedor por el fragmento recibido.
+        // Facilita navegación entre login y registro sin actividad adicional.
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentContainerView, fragment)
@@ -40,6 +43,8 @@ public class Login extends AppCompatActivity {
     }
 
     private void ensureUsersFileExists() {
+        // Garantiza que el archivo donde se guardan los usuarios exista.
+        // Si no existe, lo crea vacío y registra el estado en log.
         File file = new File(getFilesDir(), USERS_FILE);
 
         if (!file.exists()) {
@@ -57,12 +62,13 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    // 🔹 Llamado desde los fragments para cambiar de pantalla
     public void switchToRegister() {
+        // Cambia el fragmento actual para mostrar la pantalla de registro.
         loadFragment(new RegisterFragment());
     }
 
     public void switchToLogin() {
+        // Cambia el fragmento actual para mostrar la pantalla de inicio de sesión.
         loadFragment(new LoginFragment());
     }
 }
