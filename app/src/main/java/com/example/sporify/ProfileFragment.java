@@ -21,6 +21,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sporify.databinding.FragmentProfileBinding;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
@@ -44,7 +48,6 @@ public class ProfileFragment extends Fragment {
     // Launcher para solicitar permiso de cámara. En caso de aprobación, abre la cámara.
     private final ActivityResultLauncher<String> requestCameraPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                // Si concede permiso se procede con la camara, si no, se notifica rechazo.
                 if (isGranted) {
                     abrirCamara();
                 } else if (isAdded()) {
@@ -68,9 +71,10 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        // Configura eventos UI tras la creación. Si el permiso existe toma foto,
-        // si no, lanza solicitud de autorización.
+        // Configura eventos UI tras creación y carga datos del usuario en pantalla.
         super.onViewCreated(view, savedInstanceState);
+
+        cargarDatosUsuario(); // <<--- Muestra nombre + email del fichero
 
         binding.btnChangePhoto.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(
@@ -82,6 +86,31 @@ public class ProfileFragment extends Fragment {
                 requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA);
             }
         });
+    }
+
+    private void cargarDatosUsuario() {
+        // Lee el último usuario registrado desde usuarios.txt y lo muestra en txtName y txtAlias.
+        File archivo = new File(requireContext().getFilesDir(), "usuarios.txt");
+
+        if (!archivo.exists()) return;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea, ultimo = null;
+
+            // Si hay varios usuarios guardados, usa el último registrado
+            while ((linea = br.readLine()) != null) ultimo = linea;
+
+            if (ultimo != null) {
+                String[] datos = ultimo.split(";");
+
+                if (datos.length >= 3) {
+                    binding.txtAlias.setText(datos[0]); // Email
+                    binding.txtName.setText(datos[2]);  // Nombre
+                }
+            }
+        } catch (Exception e) {
+            Toast.makeText(requireContext(), "Error al cargar usuario", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void abrirCamara() {
