@@ -3,6 +3,7 @@ package com.example.sporify;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -20,19 +21,17 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.sporify.databinding.FragmentProfileBinding;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
-    // Launcher para captura de imagen con cámara. Recibe el resultado y asigna el bitmap al avatar.
     private final ActivityResultLauncher<Intent> takePictureLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                // Procesa el retorno de la cámara. Verifica éxito y asigna foto al ImageView.
                 if (result.getResultCode() == Activity.RESULT_OK &&
                         result.getData() != null &&
                         result.getData().getExtras() != null) {
@@ -45,7 +44,6 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-    // Launcher para solicitar permiso de cámara. En caso de aprobación, abre la cámara.
     private final ActivityResultLauncher<String> requestCameraPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
@@ -58,23 +56,26 @@ public class ProfileFragment extends Fragment {
             });
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Infla la vista del perfil, habilita binding y asigna la toolbar al activity.
+
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(binding.toolbar);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        // Configura eventos UI tras creación y carga datos del usuario en pantalla.
         super.onViewCreated(view, savedInstanceState);
 
-        cargarDatosUsuario(); // <<--- Muestra nombre + email del fichero
+        cargarDatosUsuario();
+        actualizarEstadoSpotify();
 
         binding.btnChangePhoto.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(
@@ -86,35 +87,48 @@ public class ProfileFragment extends Fragment {
                 requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA);
             }
         });
+
+        binding.btnSpotifyConnect.setOnClickListener(v -> {
+            SpotifyManager.login(requireActivity());
+        });
     }
 
     private void cargarDatosUsuario() {
-        // Lee el último usuario registrado desde usuarios.txt y lo muestra en txtName y txtAlias.
-        File archivo = new File(requireContext().getFilesDir(), "usuarios.txt");
+        if (currentUser == null) {
+            binding.txtName.setText("Usuario");
+            binding.txtAlias.setText("No autenticado");
+            return;
+        }
 
-        if (!archivo.exists()) return;
+        String name = currentUser.getDisplayName();
+        String email = currentUser.getEmail();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            String linea, ultimo = null;
+        if (name == null || name.trim().isEmpty()) {
+            name = "Usuario";
+        }
 
-            // Si hay varios usuarios guardados, usa el último registrado
-            while ((linea = br.readLine()) != null) ultimo = linea;
+        if (email == null || email.trim().isEmpty()) {
+            email = "Sin email";
+        }
 
-            if (ultimo != null) {
-                String[] datos = ultimo.split(";");
+        binding.txtName.setText(name);
+        binding.txtAlias.setText(email);
+    }
 
-                if (datos.length >= 3) {
-                    binding.txtAlias.setText(datos[0]); // Email
-                    binding.txtName.setText(datos[2]);  // Nombre
-                }
-            }
-        } catch (Exception e) {
-            Toast.makeText(requireContext(), "Error al cargar usuario", Toast.LENGTH_SHORT).show();
+    private void actualizarEstadoSpotify() {
+        SharedPreferences prefs = requireActivity().getSharedPreferences("spotify", 0);
+        boolean connected = prefs.getBoolean("connected", false);
+
+        if (connected) {
+            binding.tvSpotifyStatus.setText("Spotify conectado");
+            binding.btnSpotifyConnect.setText("Reconectar Spotify");
+        } else {
+            binding.tvSpotifyStatus.setText("Spotify no conectado");
+            binding.btnSpotifyConnect.setText("Conectar Spotify");
         }
     }
 
     private void abrirCamara() {
-        // Inicia intent para capturar foto con cámara usando ActivityResultLauncher.
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         takePictureLauncher.launch(intent);
     }

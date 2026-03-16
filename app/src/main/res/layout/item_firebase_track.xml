@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="10dp"
+    android:background="@color/colorBackground">
+
+    <ImageView
+        android:id="@+id/imgCover"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/logo_img_round"
+        android:contentDescription="Cover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:text="Título canción"
+        android:textColor="@color/colorOnSurface"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/imgCover"
+        app:layout_constraintEnd_toStartOf="@id/btnMore"
+        app:layout_constraintTop_toTopOf="@id/imgCover" />
+
+    <TextView
+        android:id="@+id/tvArtist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:text="Artista"
+        android:textColor="@color/colorOnSurface"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toEndOf="@id/imgCover"
+        app:layout_constraintEnd_toStartOf="@id/btnMore"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toBottomOf="@id/imgCover" />
+
+    <ImageButton
+        android:id="@+id/btnMore"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:src="@android:drawable/ic_menu_more"
+        android:contentDescription="More"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/imgCover"
+        app:layout_constraintBottom_toBottomOf="@id/imgCover"
+        app:tint="@color/colorPrimary" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

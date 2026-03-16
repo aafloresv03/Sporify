@@ -11,15 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.sporify.databinding.FragmentPlayerBinding;
-
-import java.util.ArrayList;
 
 public class PlayerFragment extends Fragment {
 
     private FragmentPlayerBinding binding;
     private Home home;
-    private ArrayList<Song> songs;
 
     private final Handler handler = new Handler();
     private Runnable progressRunnable;
@@ -28,19 +26,15 @@ public class PlayerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        // Infla la vista del player y habilita acceso al binding de la interfaz.
         binding = FragmentPlayerBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        // Se ejecuta tras crear la vista. Obtiene referencia al Activity principal, lista de canciones,
-        // configura controles de reproducción, sincroniza el estado visual e inicia actualización del progreso.
         super.onViewCreated(view, savedInstanceState);
 
         home = (Home) requireActivity();
-        songs = home.getSongs();
 
         setupControls();
         syncUI();
@@ -48,35 +42,31 @@ public class PlayerFragment extends Fragment {
     }
 
     private void setupControls() {
-        // Asigna acciones a los botones del reproductor: play/pause, siguiente y anterior.
-        // Tras cada acción se sincroniza la interfaz para reflejar el estado actual.
         binding.btnPlay.setOnClickListener(v -> {
             home.togglePlayPause();
             syncUI();
         });
 
-        binding.btnNext.setOnClickListener(v -> {
-            home.playNext();
-            syncUI();
-        });
-
-        binding.btnPrev.setOnClickListener(v -> {
-            home.playPrevious();
-            syncUI();
-        });
+        binding.btnNext.setVisibility(View.GONE);
+        binding.btnPrev.setVisibility(View.GONE);
     }
 
-    private void syncUI() {
-        // Sincroniza la información visual con la canción actual: portada, título,
-        // artista y estado del botón de reproducción.
+    public void syncUI() {
         if (binding == null) return;
 
-        int index = home.getCurrentSongIndex();
-        Song s = songs.get(index);
+        FirebaseTrack track = home.getCurrentRemoteTrack();
+        if (track == null) return;
 
-        binding.albumArt.setImageResource(s.getCoverId());
-        binding.songArtist.setText(s.getArtist());
-        binding.songTitle.setText(s.getTitle());
+        binding.songTitle.setText(track.getTitle());
+        binding.songArtist.setText(track.getArtist());
+
+        if (track.getCoverUrl() != null && !track.getCoverUrl().isEmpty()) {
+            Glide.with(requireContext())
+                    .load(track.getCoverUrl())
+                    .into(binding.albumArt);
+        } else {
+            binding.albumArt.setImageResource(R.mipmap.logo_img_round);
+        }
 
         binding.btnPlay.setImageResource(
                 home.isPlaying() ? R.drawable.pause_icon : R.drawable.play_icon
@@ -84,8 +74,6 @@ public class PlayerFragment extends Fragment {
     }
 
     private void startProgressUpdates() {
-        // Inicia un ciclo periódico que actualiza la barra de progreso del reproductor.
-        // Verifica posición actual versus duración y refresca la UI cada 100 ms.
         handler.removeCallbacksAndMessages(null);
 
         progressRunnable = new Runnable() {
@@ -95,7 +83,7 @@ public class PlayerFragment extends Fragment {
 
                 MediaPlayer mp = home.getMediaPlayer();
 
-                if (mp != null && mp.isPlaying()) {
+                if (mp != null) {
                     int pos = mp.getCurrentPosition();
                     int dur = mp.getDuration();
 

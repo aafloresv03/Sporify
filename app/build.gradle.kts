@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -30,7 +31,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
 }
@@ -43,6 +44,18 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.coordinatorlayout)
     implementation("androidx.palette:palette:1.0.0")
+
+    implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+
+    implementation("com.spotify.android:auth:1.2.5")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.google.code.gson:gson:2.10.1")
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

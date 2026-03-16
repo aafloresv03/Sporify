@@ -6,80 +6,110 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface">
 
+    <!-- HEADER GRADIENT -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@drawable/bg_profile_gradient"/>
+
     <!-- TOOLBAR -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"/>
 
-    <!-- TARJETA DE PERFIL -->
+    <!-- CARD PERFIL -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/profileCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="22dp"
-        app:cardElevation="10dp"
-        app:cardCornerRadius="22dp"
-        app:cardUseCompatPadding="true"
-        android:layout_gravity="top"
-        android:translationY="70dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_marginHorizontal="22dp"
+        android:layout_marginTop="140dp"
+        app:cardElevation="12dp"
+        app:cardCornerRadius="28dp"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="22dp">
+            android:padding="26dp">
 
-            <!-- FOTO DE PERFIL -->
+            <!-- FOTO -->
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imgAvatar"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:src="@drawable/picture_profile_icon_male_icon_human_or_people_sign_and_symbol_vector"
                 android:scaleType="centerCrop"
                 app:shapeAppearanceOverlay="@style/Shape.Circular"
                 app:strokeColor="@color/colorPrimary"
                 app:strokeWidth="4dp"/>
 
-            <!-- BOTÓN CAMBIAR FOTO -->
+            <!-- CAMBIAR FOTO -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnChangePhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/change_photo"
                 app:icon="@drawable/ic_edit"
-                app:iconTint="@color/colorOnPrimary"
                 app:backgroundTint="@color/colorPrimary"
                 android:textColor="@color/colorOnPrimary"/>
 
-            <!-- NOMBRE USUARIO -->
+            <!-- NOMBRE -->
             <TextView
                 android:id="@+id/txtName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/name"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                android:textColor="@color/colorOnSurface"/>
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorOnSurface"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-            <!-- EMAIL/ALIAS -->
+            <!-- EMAIL -->
             <TextView
                 android:id="@+id/txtAlias"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/emailText"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textColor="@color/colorOnSurface"/>
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- SEPARADOR -->
+            <View
+                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"/>
+
+            <!-- ESTADO SPOTIFY -->
+            <TextView
+                android:id="@+id/tvSpotifyStatus"
+                android:layout_marginTop="20dp"
+                android:text="Spotify no conectado"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorOnSurface"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- BOTON SPOTIFY -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSpotifyConnect"
+                android:layout_marginTop="12dp"
+                android:text="Conectar Spotify"
+                app:backgroundTint="#1DB954"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
